@@ -19,7 +19,7 @@ library(deSolve)
 init <- c(S = 1-1e-6, I = 1e-6, R = 0.0)
 
 ## beta: infection parameter; gamma: recovery parameter
-parameters <- c(beta = 2.316, gamma = 0.261)
+parameters <- c(beta = 2.5, gamma = 1.5)
 
 ## Time frame
 times      <- seq(0, 100, by = 0.5)
@@ -43,12 +43,14 @@ sir <- function(time, init, parameters) {
 ```
 
 ## Approximate the solution using `deSolve::ode()`:
+
 ```{r}
 ## Solve using `deSolve::ode()`
 approximation <- ode(y = init, times = times, func = sir, parms = parameters)
 ```
 
 ## Make it something we can plot:
+
 ```{r}
 ## Get output into a data frame
 approx_df <- as.data.frame(approximation)
@@ -60,9 +62,12 @@ approx_long <- approx_df %>%
 ```
 
 ## Plot the output with ggplot:
+
 ```{r}
 ggplot(data = approx_long, aes(x = time, y = proportion)) +
   geom_line(aes(color = population))
 ```
+
+we are looking at trees that are susceptible, recovering, and infected.
 
 ## End
